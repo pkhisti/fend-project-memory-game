@@ -36,3 +36,57 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+//restart initalize the array and all cards face down.
+let iconArray = ['fa-diamond','fa-paper-plane-o','fa-anchor','fa-bolt','fa-cube','fa-anchor','fa-leaf','fa-bicycle','fa-diamond'
+,'fa-bomb','fa-leaf','fa-bomb','fa-bolt','fa-bicycle','fa-paper-plane-o','fa-cube'];
+
+let lastIcon = "";
+let attempts = 0;
+
+
+const buildCardGird = function() {
+    let shuffledArray = shuffle(iconArray);
+    let listElement = document.getElementsByClassName('deck');
+    shuffledArray.forEach((item)=>{
+        let liElement = document.createElement('li');
+        liElement.setAttribute('class','card');
+        let iconElement =  document.createElement('i');
+        iconElement.setAttribute('class','fa ' + item);
+        liElement.appendChild(iconElement);
+        listElement[0].appendChild(liElement);
+    });
+    AddEventListeners();
+}
+
+const AddEventListeners = function() {
+    let listElement = document.getElementsByClassName('deck');
+    listElement[0].addEventListener('click',ShowCard);
+}
+
+const ShowCard = (event) => {
+   let iconClicked = event.target.getElementsByTagName('i')[0].classList[1];
+   console.log(iconClicked);
+   event.target.setAttribute('class','card show');
+}
+
+buildCardGird();
+
+const FlipAllCardsBack = function() {
+    let allLiElements = document.querySelectorAll('.card');
+    let countSpan = document.getElementsByClassName('moves');
+    let starList = document.getElementsByClassName('stars');
+    starList[0].innerHTML = "";
+    countSpan[0].innerHTML = attempts;
+    allLiElements.forEach((item)=>{
+        item.setAttribute('class','card');
+    });
+}
+
+let restartLink = document.getElementsByClassName('restart');
+restartLink[0].addEventListener('click',FlipAllCardsBack);
+
+
+        	//	<li><i class="fa fa-star"></i></li>
+        	//	<li><i class="fa fa-star"></i></li>
+        	//	<li><i class="fa fa-star"></i></li>
