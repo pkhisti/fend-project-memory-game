@@ -107,3 +107,37 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.error {
+  background: darkred;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.playagain-button {
+    height: 50px;
+    width: 105px;
+    background: seagreen;
+    font-size: 14px;
+    color: #ffffff;
+    border-radius: 8px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+}
+
+.result-box {
+    position: absolute;
+    top: 200px;
+    left: 300px;
+}
+
+.timer-panel {
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
