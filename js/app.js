@@ -1,13 +1,12 @@
 /*
- * Create a list that holds all of your cards
- */
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-// Shuffle function from http://stackoverflow.com/a/2450976
+* @description  - Display the cards on the page
+                - shuffle the list of cards using the provided "shuffle" method below
+                - loop through each card and create its HTML
+                - add each card's HTML to the page
+* @constructor - none
+* @param {array} array - array of string, in this case icons
+* Shuffle function from http://stackoverflow.com/a/2450976
+*/
 function shuffle(array) {
     var currentIndex = array.length,
         temporaryValue, randomIndex;
@@ -22,7 +21,6 @@ function shuffle(array) {
 
     return array;
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -51,6 +49,11 @@ const startTimer= ( ) => {
     tick( );
 }
 
+/*
+* @description  - tick counter to evaluate the time elapsed
+* @constructor - none
+* @param - none
+*/
 const tick = ( ) => {
     ++seconds;
     let secs = seconds;
@@ -64,7 +67,7 @@ const tick = ( ) => {
     document.getElementById("timer").innerHTML = pretty;
 }
 
-const buildCardGird = function() {
+const BuildCardGird = function() {
     let shuffledArray = shuffle(iconArray);
     let listElement = document.getElementsByClassName('deck');
     shuffledArray.forEach((item) => {
@@ -82,18 +85,19 @@ const buildCardGird = function() {
 const ShowCard = (event) => {
     let iconClicked = event.target.getElementsByTagName('i')[0].classList[1];
     let lastCard = document.getElementsByClassName('show')[0];
-    AddCount();
     if (lastIcon == "") {
         lastIcon = iconClicked;
         event.target.setAttribute('class', 'card show');
         event.target.removeEventListener('click', ShowCard)
     } else if (lastIcon == iconClicked) {
+        AddCount();
         event.target.setAttribute('class', 'card match');
         event.target.removeEventListener('click', ShowCard)
         lastCard.setAttribute('class', 'card match');
         lastCard.removeEventListener('click', ShowCard)
         lastIcon = "";
     } else {
+         AddCount();
         lastIcon = "";
         event.target.setAttribute('class', 'card show');
         setTimeout(function() {
@@ -121,6 +125,9 @@ const checkWinner = () => {
         moveResult.innerHTML = attempts;
         let starResult = document.getElementById("rating");
         starResult.innerHTML = starRating;
+        let timeTakenResult = document.getElementById("timetaken");
+        timeTakenResult.innerHTML =  document.getElementById("timer").textContent;
+
     }
 }
 
@@ -128,35 +135,35 @@ const AddCount = () => {
     attempts = attempts + 1;
     let countSpan = document.getElementsByClassName('moves');
     countSpan[0].innerHTML = attempts;
-    if (attempts > 5 && attempts <= 10) {
+    if (attempts > 5 && attempts <= 15) {
         let starListItem = document.getElementsByClassName('stars')[0].getElementsByTagName("li")[2];
         starListItem.getElementsByTagName('i')[0].setAttribute('class', 'fa fa-star-o');
         starRating = 2;
-    } else if (attempts > 10 && attempts <= 15) {
+    } else if (attempts > 15) {
         let starListItem = document.getElementsByClassName('stars')[0].getElementsByTagName("li")[1];
         starListItem.getElementsByTagName('i')[0].setAttribute('class', 'fa fa-star-o');
         starRating = 1;
-    } else if (attempts > 15) {
-        let starListItem = document.getElementsByClassName('stars')[0].getElementsByTagName("li")[0];
-        starListItem.getElementsByTagName('i')[0].setAttribute('class', 'fa fa-star-o');
-        starRating = 0;
     }
 }
 
 const ResetCardsBack = () => {
     attempts = 0;
-    let allLiElements = document.querySelectorAll('.card');
     let countSpan = document.getElementsByClassName('moves');
     countSpan[0].innerHTML = attempts;
     let starList = document.getElementsByClassName('stars')[0].getElementsByTagName('li');
     for (let i = 0; i < starList.length; i++) {
         starList[i].getElementsByTagName('i')[0].setAttribute('class', 'fa fa-star')
     }
-    allLiElements.forEach((item) => {
-        item.setAttribute('class', 'card');
-    });
     seconds = null;
-    ticker = null
+    ticker = null;
+
+    var lis = document.querySelectorAll('.deck li');
+    for(var i=0; li=lis[i]; i++) {
+        li.parentNode.removeChild(li);
+    }
+
+    BuildCardGird();
+
 }
 
 const PlayAgain = () => {
@@ -174,4 +181,4 @@ restartLink[0].addEventListener('click', ResetCardsBack);
 let playAgaibutton = document.getElementsByClassName("playagain-button")[0];
 playAgaibutton.addEventListener('click', PlayAgain);
 
-buildCardGird();
+BuildCardGird();
