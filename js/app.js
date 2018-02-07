@@ -42,6 +42,7 @@ let starRating = 3;
 
 let seconds = null;
 let ticker = null;
+let canOnlyFireOnce = null;
 
 const startTimer= ( ) => {
     seconds = -1;
@@ -78,11 +79,31 @@ const BuildCardGird = function() {
         iconElement.setAttribute('class', 'fa ' + item);
         liElement.appendChild(iconElement);
         listElement[0].appendChild(liElement);
-        startTimer();
     });
+    canOnlyFireOnce = StartTimerOnce();
 }
 
+/*
+* @description  - method to make sure that time is executed only one. Uses the concept of closure.
+* @constructor - none
+* @param - none
+*/
+
+const StartTimerOnce = () =>{
+	let executed = false;
+
+	return function() {
+		if(!executed) {
+			executed = true;
+            startTimer();
+		}
+	};
+}
+
+
+
 const ShowCard = (event) => {
+    canOnlyFireOnce();
     let iconClicked = event.target.getElementsByTagName('i')[0].classList[1];
     let lastCard = document.getElementsByClassName('show')[0];
     if (lastIcon == "") {
