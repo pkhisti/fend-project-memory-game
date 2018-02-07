@@ -100,8 +100,6 @@ const StartTimerOnce = () =>{
 	};
 }
 
-
-
 const ShowCard = (event) => {
     canOnlyFireOnce();
     let iconClicked = event.target.getElementsByTagName('i')[0].classList[1];
